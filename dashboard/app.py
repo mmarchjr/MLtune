@@ -1124,7 +1124,7 @@ def create_coefficients_view():
         
         # Pinned values section
         html.Div(className="card", children=[
-            html.Div("📌 Pinned Values", className="card-header"),
+            html.Div("Pinned Values", className="card-header"),
             html.P("Save and quickly restore coefficient sets", style={'color': 'var(--text-secondary)'}),
             html.Div(id='pinned-values-list', children=[
                 html.P("No pinned values yet. Click ⭐ on any coefficient to pin it.", style={'fontStyle': 'italic', 'color': 'var(--text-secondary)'})
@@ -1899,8 +1899,8 @@ def create_settings_view():
         html.Div(className="card", children=[
             html.Div("Configuration Management", className="card-header"),
             html.Div(style={'display': 'flex', 'gap': '8px', 'flexWrap': 'wrap'}, children=[
-                dbc.Button("💾 Save Settings", id='save-settings-btn', className="btn-primary"),
-                dbc.Button("📁 Load Settings", id='load-settings-btn', className="btn-secondary"),
+                dbc.Button("Save Settings", id='save-settings-btn', className="btn-primary"),
+                dbc.Button("Load Settings", id='load-settings-btn', className="btn-secondary"),
                 dbc.Button("Reset to Defaults", id='reset-settings-btn', className="btn-secondary"),
             ])
         ])
@@ -2126,21 +2126,21 @@ def create_danger_zone_view():
             html.Div("Configuration Operations", style={'fontWeight': 'bold', 'marginBottom': '8px'}),
             dbc.Button("Reconfigure Base Point", id='reconfigure-base-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
             dbc.Button("Restore Factory Defaults", id='restore-defaults-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
-            dbc.Button("🔐 Lock Configuration", id='lock-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
+            dbc.Button("Lock Configuration", id='lock-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
             
             html.Hr(),
             html.Div("Data Management", style={'fontWeight': 'bold', 'marginBottom': '8px'}),
-            dbc.Button("📤 Export Configuration", id='export-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
-            dbc.Button("📥 Import Configuration", id='import-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
+            dbc.Button("Export Configuration", id='export-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
+            dbc.Button("Import Configuration", id='import-config-btn', className="btn-secondary", style={'marginBottom': '8px', 'width': '100%'}),
             
             html.Hr(),
             html.Div("Destructive Operations", style={'fontWeight': 'bold', 'marginBottom': '8px', 'color': 'var(--danger)'}),
             dbc.Button("Reset All Tuning Data", id='reset-data-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
-            dbc.Button("🧹 Clear All Pinned Data", id='clear-pinned-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
+            dbc.Button("Clear All Pinned Data", id='clear-pinned-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
             
             html.Hr(),
             html.Div("Emergency Controls", style={'fontWeight': 'bold', 'marginBottom': '8px', 'color': 'var(--danger)'}),
-            dbc.Button("🔥 Emergency Stop", id='emergency-stop-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
+            dbc.Button("Emergency Stop", id='emergency-stop-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
             dbc.Button("Force Retune Coefficient", id='force-retune-btn', className="btn-danger", style={'marginBottom': '8px', 'width': '100%'}),
         ])
     ])
