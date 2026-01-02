@@ -1,5 +1,5 @@
 """
-BAYESOPT
+MLTUNE
 Copyright (C) 2025 Ruthie-FRC
 
 This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------
 
-Comprehensive Browser-Based Dashboard for Bayesian Optimization Tuner.
+Comprehensive Browser-Based Dashboard for MLtune.
 
 This dashboard provides complete control over the tuning system with:
 - GitHub-inspired professional design (pure white with orange accents)
@@ -44,7 +44,7 @@ import os
 from pathlib import Path
 
 # Add parent directory to path for tuner imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "bayesopt" / "tuner"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "mltune" / "tuner"))
 
 try:
     from config import TunerConfig
@@ -59,7 +59,7 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     suppress_callback_exceptions=True,
-    title="BayesOpt Dashboard"
+    title="MLtune Dashboard"
 )
 
 # Global state management
@@ -847,7 +847,7 @@ def create_top_nav():
         className="top-nav",
         children=[
             html.Div([
-                html.Div("BayesOpt Dashboard", className="top-nav-title")
+                html.Div("MLtune Dashboard", className="top-nav-title")
             ]),
             html.Div(
                 style={'marginLeft': 'auto', 'display': 'flex', 'gap': '16px', 'alignItems': 'center'},
@@ -1776,7 +1776,7 @@ def create_settings_view():
                 html.Br(),
                 
                 html.Label("Log File Prefix", style={'fontWeight': 'bold'}),
-                dbc.Input(type="text", value="bayesopt", id='log-prefix'),
+                dbc.Input(type="text", value="mltune", id='log-prefix'),
             ])
         ]),
         
@@ -2232,7 +2232,7 @@ def create_help_view():
         
         html.Div(className="card", children=[
             html.Div("About", className="card-header"),
-            html.P("BayesOpt Dashboard v1.0"),
+            html.P("MLtune Dashboard v1.0"),
             html.P("Comprehensive browser-based control system for the Bayesian Optimization Tuner."),
             html.P("Features: GitHub-inspired design, two-level mode system, keyboard shortcuts, and complete runtime control over all tuner settings.")
         ]),
@@ -2431,7 +2431,7 @@ def start_tour(n_clicks, state):
     # Create tour overlay with step-by-step guide
     tour_steps = [
         {
-            'title': 'Welcome to BayesOpt Dashboard!',
+            'title': 'Welcome to MLtune Dashboard!',
             'description': 'This interactive tour will show you all the powerful features at your fingertips. Click Next to continue.',
             'target': None
         },
@@ -2510,7 +2510,8 @@ def start_tour(n_clicks, state):
                 ])
             ])
         ])
-    ])"""
+    ])
+"""
 Comprehensive Browser-Based Dashboard for Bayesian Optimization Tuner.
 
 This dashboard provides complete control over the tuning system with:
@@ -2538,7 +2539,7 @@ import os
 from pathlib import Path
 
 # Add parent directory to path for tuner imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "bayesopt" / "tuner"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "mltune" / "tuner"))
 
 try:
     from config import TunerConfig
@@ -2553,7 +2554,7 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     suppress_callback_exceptions=True,
-    title="BayesOpt Dashboard"
+    title="MLtune Dashboard"
 )
 
 # Global state management
@@ -3362,7 +3363,7 @@ def create_top_nav():
         className="top-nav",
         children=[
             html.Div([
-                html.Div("BayesOpt Dashboard", className="top-nav-title")
+                html.Div("MLtune Dashboard", className="top-nav-title")
             ]),
             html.Div(
                 style={'marginLeft': 'auto', 'display': 'flex', 'gap': '16px', 'alignItems': 'center'},
@@ -4291,7 +4292,7 @@ def create_settings_view():
                 html.Br(),
                 
                 html.Label("Log File Prefix", style={'fontWeight': 'bold'}),
-                dbc.Input(type="text", value="bayesopt", id='log-prefix'),
+                dbc.Input(type="text", value="mltune", id='log-prefix'),
             ])
         ]),
         
@@ -4747,7 +4748,7 @@ def create_help_view():
         
         html.Div(className="card", children=[
             html.Div("About", className="card-header"),
-            html.P("BayesOpt Dashboard v1.0"),
+            html.P("MLtune Dashboard v1.0"),
             html.P("Comprehensive browser-based control system for the Bayesian Optimization Tuner."),
             html.P("Features: GitHub-inspired design, two-level mode system, keyboard shortcuts, and complete runtime control over all tuner settings.")
         ]),
@@ -4946,7 +4947,7 @@ def start_tour(n_clicks, state):
     # Create tour overlay with step-by-step guide
     tour_steps = [
         {
-            'title': 'Welcome to BayesOpt Dashboard!',
+            'title': 'Welcome to MLtune Dashboard!',
             'description': 'This interactive tour will show you all the powerful features at your fingertips. Click Next to continue.',
             'target': None
         },
@@ -5680,7 +5681,7 @@ if __name__ == '__main__':
     import threading
     
     print("=" * 60)
-    print("BayesOpt Dashboard Starting")
+    print("MLtune Dashboard Starting")
     print("=" * 60)
     print(f"Opening browser to: http://localhost:8050")
     print(f"Tuner integration: {'Available' if TUNER_AVAILABLE else 'Demo mode'}")
@@ -5702,7 +5703,7 @@ if __name__ == '__main__':
     import threading
     
     print("=" * 60)
-    print("BayesOpt Dashboard Starting")
+    print("MLtune Dashboard Starting")
     print("=" * 60)
     print(f"Opening browser to: http://localhost:8050")
     print(f"Tuner integration: {'Available' if TUNER_AVAILABLE else 'Demo mode'}")

@@ -1,8 +1,8 @@
 # Auto-activate virtual environment in Codespaces
 # This is automatically appended to ~/.bashrc in the container
 
-# Function to activate venv if in BAYESOPT directory
-_activate_bayesopt_venv() {
+# Function to activate venv if in MLTUNE directory
+_activate_mltune_venv() {
     if [[ -d "${WORKSPACE_FOLDER}/.venv" ]] || [[ -d "$(pwd)/.venv" ]]; then
         local venv_path="${WORKSPACE_FOLDER}/.venv"
         if [[ ! -d "$venv_path" ]]; then
@@ -17,10 +17,10 @@ _activate_bayesopt_venv() {
 }
 
 # Run on shell startup
-_activate_bayesopt_venv
+_activate_mltune_venv
 
 # Hook to reactivate on cd (for Codespaces)
 cd() {
     builtin cd "$@"
-    _activate_bayesopt_venv
+    _activate_mltune_venv
 }
