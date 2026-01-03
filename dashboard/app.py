@@ -2466,6 +2466,6 @@ if __name__ == '__main__':
         time.sleep(1.5)
         webbrowser.open('http://localhost:8050')
 
-    # Start the browser in a background thread (only once)
+    # Start the browser in a background thread
     threading.Thread(target=open_browser, daemon=True).start()
     app.run(debug=False, host='0.0.0.0', port=8050)
