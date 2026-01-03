@@ -2030,6 +2030,9 @@ def handle_coefficient_fine_adjustments(inc_clicks, dec_clicks, inc_large_clicks
     except (json.JSONDecodeError, KeyError, TypeError):
         return state
 
+    # Validate coefficient name before using it
+    if not coeff_name:
+        return state
     # Determine current value from stored state or defaults
     current_value = state.get('coefficient_values', {}).get(coeff_name, COEFFICIENT_DEFAULTS.get(coeff_name, 0))
     
