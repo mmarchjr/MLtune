@@ -926,9 +926,10 @@ def create_settings_view():
                         "Set Current as Baseline", 
                         id='set-baseline-btn', 
                         className="btn-primary",
-                        style={'width': '100%', 'padding': '12px'}
+                        style={'width': '100%', 'padding': '12px'},
+                        n_clicks=0
                     ),
-                    html.Small(id='baseline-recommendation', children="", style={'display': 'block', 'marginTop': '8px', 'color': 'var(--text-secondary)', 'fontStyle': 'italic'})
+                    html.Small(id='baseline-recommendation', children='', style={'display': 'block', 'marginTop': '8px', 'color': 'var(--text-secondary)', 'fontStyle': 'italic'})
                 ])
             ])
         ]),
@@ -1303,35 +1304,35 @@ def create_robot_status_view():
                 html.Tbody([
                     html.Tr([
                         html.Td("Left Drive Motor"),
-                        html.Td(html.Span("●", style={'color': 'var(--success)'}) + " OK"),
+                        html.Td([html.Span("●", style={'color': 'var(--success)'}), " OK"]),
                         html.Td("42°C"),
                         html.Td("3.2A"),
                         html.Td("0"),
                     ]),
                     html.Tr([
                         html.Td("Right Drive Motor"),
-                        html.Td(html.Span("●", style={'color': 'var(--success)'}) + " OK"),
+                        html.Td([html.Span("●", style={'color': 'var(--success)'}), " OK"]),
                         html.Td("41°C"),
                         html.Td("3.1A"),
                         html.Td("0"),
                     ]),
                     html.Tr([
                         html.Td("Shooter Motor"),
-                        html.Td(html.Span("●", style={'color': 'var(--warning)'}) + " Warm"),
+                        html.Td([html.Span("●", style={'color': 'var(--warning)'}), " Warm"]),
                         html.Td("58°C"),
                         html.Td("12.4A"),
                         html.Td("0"),
                     ]),
                     html.Tr([
                         html.Td("Intake Motor"),
-                        html.Td(html.Span("●", style={'color': 'var(--success)'}) + " OK"),
+                        html.Td([html.Span("●", style={'color': 'var(--success)'}), " OK"]),
                         html.Td("38°C"),
                         html.Td("2.1A"),
                         html.Td("0"),
                     ]),
                     html.Tr([
                         html.Td("Pneumatics"),
-                        html.Td(html.Span("●", style={'color': 'var(--danger)'}) + " No Data"),
+                        html.Td([html.Span("●", style={'color': 'var(--danger)'}), " No Data"]),
                         html.Td("--"),
                         html.Td("--"),
                         html.Td("1"),
@@ -1501,7 +1502,7 @@ def create_help_view():
 # Main layout
 app.layout = html.Div(
     id='root-container',
-    **{'data-theme': 'light'},  # Default theme, updated by callback
+    **{'data-theme': 'light'},  # Default theme, updated by callback # type: ignore
     children=[
         dcc.Store(id='app-state', data=app_state),
         dcc.Interval(id='update-interval', interval=1000),  # Update every second
@@ -1565,25 +1566,38 @@ app.layout = html.Div(
 @app.callback(
     Output('main-content', 'children'),
     Output('main-content', 'className'),
+    Output({'type': 'nav-btn', 'index': ALL}, 'className'),
     [Input({'type': 'nav-btn', 'index': ALL}, 'n_clicks')],
     [State('sidebar', 'className')]
 )
 def update_view(clicks, sidebar_class):
-    """Update the main content view based on sidebar navigation."""
+    """Update the main content view based on sidebar navigation and mark the active sidebar item."""
     ctx = callback_context
+    # Default view is 'dashboard'
+    default_view = 'dashboard'
+
+    # Sidebar button indices in the same order as create_sidebar
+    nav_indices = ['dashboard', 'coefficients', 'workflow', 'graphs', 'settings', 'robot', 'notes', 'danger', 'logs', 'help']
+
     if not ctx.triggered:
-        return create_dashboard_view(), 'main-content'
+        content = create_dashboard_view()
+        class_name = 'main-content expanded' if 'collapsed' in (sidebar_class or '') else 'main-content'
+        nav_classes = ['sidebar-menu-item active' if idx == default_view else 'sidebar-menu-item' for idx in nav_indices]
+        return content, class_name, nav_classes
     
     # Determine which button was clicked
     triggered_id = ctx.triggered[0]['prop_id'].split('.')[0]
     if triggered_id == '':
-        return create_dashboard_view(), 'main-content'
+        content = create_dashboard_view()
+        class_name = 'main-content expanded' if 'collapsed' in (sidebar_class or '') else 'main-content'
+        nav_classes = ['sidebar-menu-item active' if idx == default_view else 'sidebar-menu-item' for idx in nav_indices]
+        return content, class_name, nav_classes
     
     try:
         button_data = json.loads(triggered_id)
-        view = button_data.get('index', 'dashboard')
+        view = button_data.get('index', default_view)
     except (json.JSONDecodeError, KeyError, TypeError):
-        return create_dashboard_view(), 'main-content'
+        view = default_view
     
     # Map view to content - use lazy evaluation to avoid errors
     try:
@@ -1606,7 +1620,10 @@ def update_view(clicks, sidebar_class):
         print(f"Error rendering view {view}: {e}")
         content = create_dashboard_view()
     
-    class_name = 'main-content expanded' if 'collapsed' in sidebar_class else 'main-content'
+    class_name = 'main-content expanded' if 'collapsed' in (sidebar_class or '') else 'main-content'
+    nav_classes = ['sidebar-menu-item active' if idx == view else 'sidebar-menu-item' for idx in nav_indices]
+
+    return content, class_name, nav_classes
     
     return content, class_name
 
@@ -1747,8 +1764,8 @@ def start_tour(n_clicks, state):
                     html.Li("Keyboard shortcuts"),
                 ]),
                 html.Div(style={'marginTop': '30px', 'display': 'flex', 'gap': '10px'}, children=[
-                    dbc.Button("Start Tour", className="btn-primary", size="lg", href="#", style={'flex': '1'}),
-                    dbc.Button("Skip Tour", className="btn-secondary", size="lg", href="#", style={'flex': '1'}),
+                    dbc.Button("Start Tour", className="btn-primary", size="lg", style={'flex': '1'}),
+                    dbc.Button("Skip Tour", className="btn-secondary", size="lg", style={'flex': '1'}),
                 ])
             ])
         ])
