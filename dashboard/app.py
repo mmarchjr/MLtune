@@ -187,45 +187,14 @@ def create_sidebar():
     )
 
 
-def create_robot_game_view():
-    """Create the robot jumping game (appears when disconnected)."""
-    return html.Div(
-        id='robot-game-container',
-        style={
-            'display': 'none',  # Hidden by default, shown when disconnected
-            'textAlign': 'center',
-            'padding': '50px 0'
-        },
-        children=[
-            html.Div(className="card", style={'maxWidth': '800px', 'margin': '0 auto'}, children=[
-                html.Div("Robot Runner", className="card-header", style={'fontSize': '32px'}),
-                html.P("Connection to robot lost. Press SPACE to play!", style={'fontSize': '16px', 'color': 'var(--text-secondary)'}),
-                html.Canvas(
-                    id='game-canvas',
-                    width=800,
-                    height=200,
-                    style={
-                        'border': '2px solid var(--border-default)',
-                        'borderRadius': '6px',
-                        'backgroundColor': 'var(--bg-secondary)',
-                        'display': 'block',
-                        'margin': '20px auto'
-                    }
-                ),
-                html.Div(id='game-score', children="Score: 0", style={'fontSize': '24px', 'fontWeight': 'bold', 'color': 'var(--accent-primary)'}),
-                html.P("Press SPACE to jump over obstacles!", style={'fontSize': '14px', 'marginTop': '10px'}),
-                html.P("Game automatically appears when robot is disconnected", style={'fontSize': '12px', 'color': 'var(--text-tertiary)', 'fontStyle': 'italic'}),
-            ])
-        ]
-    )
+# Robot game view removed
+
 
 
 def create_dashboard_view():
     """Create the main dashboard view with quick actions."""
     return html.Div([
-        # Robot game (shown when disconnected)
-        create_robot_game_view(),
-        
+
         # Breadcrumb navigation
         html.Div(className="breadcrumb", children=[
             html.Span("Home", className="breadcrumb-item"),
@@ -1526,12 +1495,6 @@ def create_help_view():
             html.P("Features: GitHub-inspired design, two-level mode system, keyboard shortcuts, and complete runtime control over all tuner settings.")
         ]),
         
-        html.Div(className="card", children=[
-            html.Div("Robot Runner Game", className="card-header"),
-            html.P("When the robot is disconnected, a fun jumping game automatically appears!"),
-            html.P("Press SPACE to jump over obstacles. Score points and challenge yourself during downtime."),
-            html.P(html.Em("Like Chrome's dino game, but with a robot!"), style={'color': 'var(--text-secondary)'})
-        ])
     ])
 
 
@@ -1694,16 +1657,6 @@ def dismiss_banner(n_clicks):
     return {'display': 'flex'}
 
 
-@app.callback(
-    Output('robot-game-container', 'style'),
-    [Input('update-interval', 'n_intervals')],
-    [State('app-state', 'data')]
-)
-def toggle_robot_game(n_intervals, state):
-    """Show robot game when disconnected from robot."""
-    if state.get('connection_status') == 'disconnected':
-        return {'display': 'block', 'textAlign': 'center', 'padding': '50px 0'}
-    return {'display': 'none'}
 
 
 @app.callback(
@@ -2470,4 +2423,4 @@ if __name__ == '__main__':
 
     # Start the browser in a background thread
     threading.Thread(target=open_browser, daemon=True).start()
-    app.run(debug=False, host='0.0.0.0', port=8050)
+    app.run(debug=True, host='0.0.0.0', port=8050)
